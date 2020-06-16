@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JustDid</string>
+    <string name="just_did_filename">just-did.txt</string>
 </resources>
