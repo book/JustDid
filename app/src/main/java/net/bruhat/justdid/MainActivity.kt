@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val taskLog = findViewById<TextView>(R.id.taskLog)
+        val newText = readTaskLog()
+        taskLog.setText(newText.toCharArray(), 0, newText.length)
     }
 
     // Storage Permissions
@@ -52,13 +56,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun writeString(s: String) {
+    private fun getTaskLogFile(): File {
         verifyStoragePermissions(this);
-        val name = getString( R.string.just_did_filename)
+        val name = getString(R.string.just_did_filename)
         // path = /data/user/0/net.bruhat.justdid/files/
         val path = getFilesDir()
-        val fullPath = File(path, name)
-        fullPath.appendText(s,StandardCharsets.UTF_8)
+        return File(path, name)
+    }
+
+    private fun writeString(s: String) {
+        getTaskLogFile().appendText(s, StandardCharsets.UTF_8)
+    }
+
+    private fun readTaskLog(): String {
+        val logFile = getTaskLogFile()
+        if (!logFile.exists()) {
+            return ""
+        }
+        return logFile.readText(StandardCharsets.UTF_8)
     }
 
     private fun millisToString(millis: Long): String {
@@ -70,13 +85,13 @@ class MainActivity : AppCompatActivity() {
 
     fun addToTaskLog(view: View) {
         val taskLog = findViewById<TextView>(R.id.taskLog)
-        val task    = findViewById<EditText>(R.id.editText)
+        val task = findViewById<EditText>(R.id.editText)
         val epoch = System.currentTimeMillis()
         writeString("" + epoch + " " + task.text + "\n")
 
         val dateTimeStr = millisToString(epoch)
         val newText = dateTimeStr + " " + task.text + "\n" + taskLog.text
-        taskLog.setText( newText.toCharArray(), 0, newText.length )
+        taskLog.setText(newText.toCharArray(), 0, newText.length)
         task.setText("")
     }
 }
