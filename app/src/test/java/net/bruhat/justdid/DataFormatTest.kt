@@ -16,4 +16,12 @@ class DataFormatTest {
         assertEquals("label text", entry.label)
     }
 
+    @Test
+    fun serialization_of_entry() {
+        var entry = net.bruhat.justdid.Entry( 1234567890, "+0100", "laundry")
+        var line = entry.toString()
+
+        assertEquals( "1 1234567890 +0100 laundry", line )
+    }
+
 }

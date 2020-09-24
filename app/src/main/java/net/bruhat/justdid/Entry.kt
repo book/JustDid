@@ -3,6 +3,10 @@ package net.bruhat.justdid
 import android.text.TextUtils.split
 
 class Entry {
+
+    // TODO: how to use class-level SerialVersionUID ?
+    private val ourSerialVersionUID: Long = 1
+
     var epoch: Long = 0
     lateinit var offset: String
     lateinit var label: String
@@ -23,5 +27,9 @@ class Entry {
         } else {
             throw RuntimeException(line)
         }
+    }
+
+    override fun toString(): String {
+        return String.format( "%d %d %s %s", ourSerialVersionUID, epoch, offset, label )
     }
 }
