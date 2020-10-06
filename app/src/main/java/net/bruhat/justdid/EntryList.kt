@@ -16,4 +16,12 @@ class EntryList {
         entries.add(entry);
         return entry
     }
+
+    override fun toString() : String {
+        var dump : String = ""
+        entries.listIterator().forEach {
+            dump = dump.plus( it.toString() + "\n" )
+        }
+        return dump
+    }
 }

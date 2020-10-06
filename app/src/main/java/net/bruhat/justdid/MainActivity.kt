@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun writeString(s: String) {
-        getTaskLogFile().appendText(s, StandardCharsets.UTF_8)
+        getTaskLogFile().writeText( entryList.toString(), StandardCharsets.UTF_8)
     }
 
     private fun readTaskLog(): String {
