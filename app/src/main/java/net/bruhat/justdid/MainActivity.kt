@@ -16,10 +16,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var entryList: EntryList
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        entryList = EntryList()
         val taskLog = findViewById<TextView>(R.id.taskLog)
         val newText = readTaskLog()
         taskLog.setText(newText.toCharArray(), 0, newText.length)
@@ -86,11 +89,11 @@ class MainActivity : AppCompatActivity() {
     fun addToTaskLog(view: View) {
         val taskLog = findViewById<TextView>(R.id.taskLog)
         val task = findViewById<EditText>(R.id.editText)
-        val epoch = System.currentTimeMillis()
-        writeString("" + epoch + " " + task.text + "\n")
+        val entry = entryList.addEntry( task.text.toString() )
 
-        val dateTimeStr = millisToString(epoch)
-        val newText = dateTimeStr + " " + task.text + "\n" + taskLog.text
+        writeString(entry.toString() + "\n")
+        val newText = entry.toString() + "\n" + taskLog.text.toString()
+
         taskLog.setText(newText.toCharArray(), 0, newText.length)
         task.setText("")
     }
