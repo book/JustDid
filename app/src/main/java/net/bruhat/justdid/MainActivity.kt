@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        entryList = EntryList()
+        entryList = EntryList(getTaskLogFile())
         val taskLog = findViewById<TextView>(R.id.taskLog)
         val newText = readTaskLog()
         taskLog.setText(newText.toCharArray(), 0, newText.length)

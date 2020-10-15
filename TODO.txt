@@ -1,5 +1,7 @@
-* save in a new format
+✓ save in a new format
 	version, epoch, offset, chore-name
+✓ save the entire EntryList
+* read the file on startup
 * show old entries in a nice way
 	newest on top
 * make <Enter> act as the button (and no newlines in the text)
