@@ -1,19 +1,20 @@
 package net.bruhat.justdid
 
-import android.icu.util.TimeZone
-import android.icu.util.TimeZone.SHORT_GMT
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
 class EntryList {
     var entries: ArrayList<Entry> = ArrayList<Entry>();
 
+    constructor( persistFile: File) {
+        // readFile
+    }
+
     fun addEntry(chore: String) : Entry {
         val epoch = System.currentTimeMillis()
-        val tz = TimeZone.getDefault()
-        val offset = tz.getDisplayName(tz.inDaylightTime(Date(epoch)), SHORT_GMT )
-        val entry = net.bruhat.justdid.Entry( epoch, offset, chore )
-        entries.add(entry);
+        val entry = net.bruhat.justdid.Entry( epoch, chore )
+        entries.add(0, entry);
         return entry
     }
 
