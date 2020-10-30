@@ -20,7 +20,7 @@ class EntryList {
     }
 
     fun addEntry(chore: String): Entry {
-        val epoch = clock.currentTimeMillis()
+        val epoch = clock.currentTimeMillis() / 1000
         val entry = net.bruhat.justdid.Entry(epoch, chore)
         entries.add(0, entry);
         return entry
