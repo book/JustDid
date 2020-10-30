@@ -1,7 +1,7 @@
 package net.bruhat.justdid
 
+import java.util.TimeZone
 import java.io.File
-import net.bruhat.justdid.Clock
 import java.nio.charset.StandardCharsets
 import kotlin.collections.ArrayList
 
@@ -29,12 +29,17 @@ class EntryList {
     override fun toString(): String {
         var dump: String = ""
         entries.listIterator().forEach {
-            dump = dump.plus(it.toString() + "\n")
+            var line = it.toDisplayString(clock.timeZone())
+            dump = dump.plus(line + "\n")
         }
         return dump
     }
 
     fun save() {
-        persistFile.writeText( toString(), StandardCharsets.UTF_8)
+        var dump: String = ""
+        entries.listIterator().forEach {
+            dump = dump.plus(it.toString() + "\n")
+        }
+        persistFile.writeText( dump, StandardCharsets.UTF_8)
     }
 }
