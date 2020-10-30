@@ -2,16 +2,21 @@ package net.bruhat.justdid
 
 import java.io.File
 import net.bruhat.justdid.Clock
+import java.nio.charset.StandardCharsets
 import kotlin.collections.ArrayList
 
 class EntryList {
     var entries: ArrayList<Entry> = ArrayList<Entry>();
 
     private lateinit var clock: Clock
+    private lateinit var persistFile: File
 
-    constructor(persistFile: File, pclock: Clock = Clock.System()) {
+    constructor(pPersistFile: File, pclock: Clock = Clock.System()) {
         clock = pclock
-        // readFile
+        persistFile = pPersistFile
+        persistFile.forEachLine( StandardCharsets.UTF_8) {
+            entries.add( Entry(it) )
+        }
     }
 
     fun addEntry(chore: String): Entry {
@@ -27,5 +32,9 @@ class EntryList {
             dump = dump.plus(it.toString() + "\n")
         }
         return dump
+    }
+
+    fun save() {
+        persistFile.writeText( toString(), StandardCharsets.UTF_8)
     }
 }
