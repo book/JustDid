@@ -24,8 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         entryList = EntryList(getTaskLogFile())
         val taskLog = findViewById<TextView>(R.id.taskLog)
-        val newText = readTaskLog()
-        taskLog.setText(newText.toCharArray(), 0, newText.length)
+        taskLog.setText(entryList.toString())
     }
 
     // Storage Permissions
@@ -67,34 +66,13 @@ class MainActivity : AppCompatActivity() {
         return File(path, name)
     }
 
-    private fun writeString(s: String) {
-        getTaskLogFile().writeText( entryList.toString(), StandardCharsets.UTF_8)
-    }
-
-    private fun readTaskLog(): String {
-        val logFile = getTaskLogFile()
-        if (!logFile.exists()) {
-            return ""
-        }
-        return logFile.readText(StandardCharsets.UTF_8)
-    }
-
-    private fun millisToString(millis: Long): String {
-        val pattern = "yyyy-MM-dd HH:mm:ss Z"
-        val simpleDateFormat = SimpleDateFormat(pattern)
-        val dateTimeStr = simpleDateFormat.format(Date(millis))
-        return dateTimeStr
-    }
-
     fun addToTaskLog(view: View) {
         val taskLog = findViewById<TextView>(R.id.taskLog)
         val task = findViewById<EditText>(R.id.editText)
-        val entry = entryList.addEntry( task.text.toString() )
+        val entry = entryList.addEntry(task.text.toString())
+        entryList.save()
 
-        writeString(entry.toString() + "\n")
-        val newText = entry.toString() + "\n" + taskLog.text.toString()
-
-        taskLog.setText(newText.toCharArray(), 0, newText.length)
+        taskLog.text = entryList.toString()
         task.setText("")
     }
 }
