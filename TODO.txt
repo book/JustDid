@@ -1,9 +1,9 @@
-✓ save in a new format
-	version, epoch, offset, chore-name
+✓ save in a new format: version, epoch, chore-name
 ✓ save the entire EntryList
-* read the file on startup
-* show old entries in a nice way
-	newest on top
+✓ read the file on startup
+✓ show old entries in a nice way
+  ✓ newest on top
+  ✓ format the date
 * make <Enter> act as the button (and no newlines in the text)
 * move input of new chore behind plus button
 * make a button list of known chores
