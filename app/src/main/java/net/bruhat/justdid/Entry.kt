@@ -1,6 +1,7 @@
 package net.bruhat.justdid
 
-import android.text.TextUtils.split
+import java.text.SimpleDateFormat
+import java.util.TimeZone
 
 class Entry {
 
@@ -26,6 +27,13 @@ class Entry {
         }
     }
 
+    fun toDisplayString(tz: TimeZone): String {
+        val pattern = "yyyy-MM-dd HH:mm:ss Z"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        simpleDateFormat.timeZone = tz
+        val dateTimeStr = simpleDateFormat.format(epoch * 1000)
+        return String.format("%s %s", dateTimeStr, label )
+    }
     override fun toString(): String {
         return String.format( "%d %d %s", ourSerialVersionUID, epoch, label )
     }

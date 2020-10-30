@@ -3,8 +3,9 @@ package net.bruhat.justdid
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.util.*
 
-class DataFormatTest {
+class EntryTest {
 
     @Test
     fun deserialization_of_valid_line() {
@@ -21,6 +22,15 @@ class DataFormatTest {
         var line = entry.toString()
 
         assertEquals( "1 1234567890 laundry", line )
+    }
+
+    @Test
+    fun display_of_entry() {
+        var entry = net.bruhat.justdid.Entry( 1234567890, "vacuum")
+        var tz = TimeZone.getTimeZone("GMT+0100");
+        var expected = "2009-02-14 00:31:30 +0100 vacuum";
+        assertEquals( expected, entry.toDisplayString( tz ))
+
     }
 
 }
