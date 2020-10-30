@@ -1,25 +1,10 @@
 package net.bruhat.justdid
 
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 import java.io.File
 
 class EntryListTest {
-//    public class BogusTimeZone extends Timezone {
-//
-//    }
-
-    // read an entrylist from an non-existing
-    // create 3 entries
-    // persist
-    // read them back (in a new entrylist)
-    // check the order / string
-
-    @Before
-    fun setup()
-    {
-    }
 
     fun write_four_entries(persistedLog: File,  testClock: Clock.Fake )
     {
@@ -51,5 +36,4 @@ class EntryListTest {
         assertEquals( chorelist.entries[2].label, "chore 2")
         assertEquals( chorelist.entries[3].label, "chore 1")
     }
-
 }
