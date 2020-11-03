@@ -4,7 +4,7 @@
 ✓ show old entries in a nice way
   ✓ newest on top
   ✓ format the date
-* make <Enter> act as the button (and no newlines in the text)
+✓ make <Enter> act as the button (and no newlines in the text)
 * move input of new chore behind plus button
 * make a button list of known chores
 * two panes/views: one for entry (and last 3 items?), one for the full log

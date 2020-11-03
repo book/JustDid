@@ -4,13 +4,16 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment.getExternalStorageDirectory
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import java.io.File
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var entryList: EntryList
@@ -22,6 +25,30 @@ class MainActivity : AppCompatActivity() {
         entryList = EntryList(getTaskLogFile())
         val taskLog = findViewById<TextView>(R.id.taskLog)
         taskLog.setText(entryList.toString())
+
+        val task = findViewById<EditText>(R.id.editText)
+        task.setOnEditorActionListener { v, actionId, event ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_SEND -> {
+                    addToTaskLog(v)
+                    true
+                }
+                else -> false
+            }
+        }
+        task.setOnKeyListener { v, keyCode, event ->
+            return@setOnKeyListener when (keyCode) {
+                KeyEvent.KEYCODE_ENTER -> {
+                    if (event.getAction() === KeyEvent.ACTION_DOWN) {
+                        addToTaskLog(v)
+                        true
+                    } else {
+                        false
+                    }
+                }
+                else -> false
+            }
+        }
     }
 
     // Storage Permissions
