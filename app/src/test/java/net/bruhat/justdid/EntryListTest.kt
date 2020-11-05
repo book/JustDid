@@ -36,4 +36,22 @@ class EntryListTest {
         assertEquals( chorelist.entries[2].label, "chore 2")
         assertEquals( chorelist.entries[3].label, "chore 1")
     }
+
+    @Test
+    fun for_top_n() {
+        var labels = ArrayList<String>()
+        var testClock = Clock.Fake();
+        testClock.millis = 1585702923;
+
+        var persistedLog = File.createTempFile("EntryListTest_", ".tmp")
+        write_four_entries(persistedLog, testClock)
+
+        var chorelist = EntryList(persistedLog, testClock)
+        chorelist.forTopN(3, { labels.add(it.label) });
+        assertEquals(3, labels.size)
+
+        labels.clear()
+        chorelist.forTopN(15, { labels.add(it.label) });
+        assertEquals( 4, labels.size)
+    }
 }

@@ -42,4 +42,12 @@ class EntryList {
         }
         persistFile.writeText( dump, StandardCharsets.UTF_8)
     }
+
+    fun forTopN(n : Int = 5, callback: (chore: Entry) -> Unit ) {
+        var i = 0;
+        while (i < n && i < entries.size) {
+            var entry = entries.get(i++);
+            callback(entry)
+        }
+    }
 }
