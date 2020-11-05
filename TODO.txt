@@ -1,4 +1,6 @@
 * make it easier to repeat things (when did I last empty the cat litter?)
+  * show the top 5 chores as direct-entry buttons
+  * programmatically add buttons to UI (more buttons if they fit)
 * move input of new chore behind plus button
 * make a button list of known chores
 * two panes/views: one for entry (and last 3 items?), one for the full log

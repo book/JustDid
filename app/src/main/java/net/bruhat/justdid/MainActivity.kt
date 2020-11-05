@@ -7,22 +7,30 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var entryList: EntryList
+    private lateinit var buttonList: ArrayList<Button>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         entryList = EntryList(getTaskLogFile())
+        buttonList = ArrayList<Button>()
+
+        entryList.forTopN( 3, {
+            buildButtonFor(it.label)
+        })
         val taskLog = findViewById<TextView>(R.id.taskLog)
         taskLog.setText(entryList.toString())
 
@@ -57,6 +65,20 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+
+    private fun buildButtonFor( chore : String ) {
+        var newButton: Button = Button(this)
+        newButton.setId(View.generateViewId())
+        newButton.setText(chore)
+
+        // set constraints
+        // see: ConstraintLayout, ConstraintSet
+        val mainLayout = findViewById<ConstraintLayout>(R.id.mainLayout)
+        mainLayout.addView( newButton)
+
+        buttonList.add(newButton);
+    }
+
 
     /**
      * Checks if the app has permission to write to device storage
