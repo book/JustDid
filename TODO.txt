@@ -5,10 +5,12 @@
   ✓ newest on top
   ✓ format the date
 ✓ make <Enter> act as the button (and no newlines in the text)
+* make it easier to repeat things (when did I last empty the cat litter?)
 * move input of new chore behind plus button
 * make a button list of known chores
 * two panes/views: one for entry (and last 3 items?), one for the full log
 * view the log of specific type of chore
+* share a TODO list with another user
 
 * modify files and see them reflected in the device,
 	the files can be "uploaded" via the IDE find out the process from the CLI
