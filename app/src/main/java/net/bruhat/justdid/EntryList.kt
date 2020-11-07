@@ -14,8 +14,10 @@ class EntryList {
     constructor(pPersistFile: File, pclock: Clock = Clock.System()) {
         clock = pclock
         persistFile = pPersistFile
-        persistFile.forEachLine( StandardCharsets.UTF_8) {
-            entries.add( Entry(it) )
+        if ( persistFile.exists() ) {
+            persistFile.forEachLine( StandardCharsets.UTF_8) {
+               entries.add( Entry(it) )
+            }
         }
     }
 
