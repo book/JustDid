@@ -1,6 +1,7 @@
 package net.bruhat.justdid
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import java.io.File
 
@@ -20,6 +21,13 @@ class EntryListTest {
         assertEquals( chorelist.entries[2].label, "chore 2")
         assertEquals( chorelist.entries[3].label, "chore 1")
         chorelist.save()
+    }
+
+    @Test
+    fun survives_absent_file() {
+        var persistedLog = File("does-not-exist.txt")
+        var chorelist = EntryList(persistedLog)
+        assertNotNull(chorelist)
     }
 
     @Test
