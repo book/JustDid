@@ -1,10 +1,14 @@
 * make it easier to repeat things (when did I last empty the cat litter?)
-  * show the top 5 chores as direct-entry buttons
-  * programmatically add buttons to UI (more buttons if they fit)
+  * show the top 9 chores as direct-entry buttons (3x3)
+    * make a button list of known chores
+      * static set of buttons in the rigid layout
+      * dynamically update the text and action from the EntryList
+    * programmatically add buttons to UI? (more buttons if they fit)
 * move input of new chore behind plus button
-* make a button list of known chores
 * two panes/views: one for entry (and last 3 items?), one for the full log
+  * the log itself could have a "+" for "oh, I forgot to record doing that"
 * view the log of specific type of chore
+  * chore specific config?
 * share a TODO list with another user
 
 * modify files and see them reflected in the device,
