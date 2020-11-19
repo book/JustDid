@@ -20,6 +20,7 @@ import java.io.File
 class MainActivity : AppCompatActivity() {
     private lateinit var entryList: EntryList
     private lateinit var buttonList: ArrayList<Button>
+    private lateinit var buttonMap: HashMap<Int,String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +28,24 @@ class MainActivity : AppCompatActivity() {
 
         entryList = EntryList(getTaskLogFile())
         buttonList = ArrayList<Button>()
+        buttonMap = HashMap<Int,String>()
 
+        buttonList.add( findViewById<Button>(R.id.button1) )
+        buttonList.add( findViewById<Button>(R.id.button2) )
+        buttonList.add( findViewById<Button>(R.id.button3) )
+
+        var idx = 0
         entryList.forTopN( 3, {
-            buildButtonFor(it.label)
+            val button_id = buttonList[idx].getId()
+            buttonList[idx].text = it.label
+            buttonMap.set(button_id, it.label)
+            ++idx
         })
+        while( idx < buttonList.size) {
+            buttonList[idx].isActivated = false
+            buttonList[idx].setText( "...")
+        }
+
         val taskLog = findViewById<TextView>(R.id.taskLog)
         taskLog.setText(entryList.toString())
 
@@ -120,5 +135,18 @@ class MainActivity : AppCompatActivity() {
 
         taskLog.text = entryList.toString()
         task.setText("")
+        // reorg buttons
+    }
+
+    fun clickButton( view:View) {
+        val id = view.getId()
+        val text = buttonMap.get(id)
+        if (text != null) {
+            val taskLog = findViewById<TextView>(R.id.taskLog)
+            val entry = entryList.addEntry(text)
+            entryList.save()
+            taskLog.text = entryList.toString()
+            // reorg buttons
+        }
     }
 }
