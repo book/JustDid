@@ -20,7 +20,7 @@ import java.io.File
 class MainActivity : AppCompatActivity() {
     private lateinit var entryList: EntryList
     private lateinit var buttonList: ArrayList<Button>
-    private lateinit var buttonMap: HashMap<Int,String>
+    private lateinit var buttonMap: HashMap<Int, String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,26 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         entryList = EntryList(getTaskLogFile())
         buttonList = ArrayList<Button>()
-        buttonMap = HashMap<Int,String>()
+        buttonMap = HashMap<Int, String>()
 
-        buttonList.add( findViewById<Button>(R.id.button1) )
-        buttonList.add( findViewById<Button>(R.id.button2) )
-        buttonList.add( findViewById<Button>(R.id.button3) )
-
-        var idx = 0
-        entryList.forTopN( 3, {
-            val button_id = buttonList[idx].getId()
-            buttonList[idx].text = it.label
-            buttonMap.set(button_id, it.label)
-            ++idx
-        })
-        while( idx < buttonList.size) {
-            buttonList[idx].isActivated = false
-            buttonList[idx].setText( "...")
-        }
-
-        val taskLog = findViewById<TextView>(R.id.taskLog)
-        taskLog.setText(entryList.toString())
+        buttonList.add(findViewById<Button>(R.id.button1))
+        buttonList.add(findViewById<Button>(R.id.button2))
+        buttonList.add(findViewById<Button>(R.id.button3))
 
         val task = findViewById<EditText>(R.id.editText)
         task.setOnEditorActionListener { v, actionId, event ->
@@ -72,6 +57,8 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        redrawScreen()
     }
 
     // Storage Permissions
@@ -81,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
-    private fun buildButtonFor( chore : String ) {
+    private fun buildButtonFor(chore: String) {
         var newButton: Button = Button(this)
         newButton.setId(View.generateViewId())
         newButton.setText(chore)
@@ -89,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         // set constraints
         // see: ConstraintLayout, ConstraintSet
         val mainLayout = findViewById<ConstraintLayout>(R.id.mainLayout)
-        mainLayout.addView( newButton)
+        mainLayout.addView(newButton)
 
         buttonList.add(newButton);
     }
@@ -138,15 +125,33 @@ class MainActivity : AppCompatActivity() {
         // reorg buttons
     }
 
-    fun clickButton( view:View) {
+    fun clickButton(view: View) {
         val id = view.getId()
         val text = buttonMap.get(id)
         if (text != null) {
             val taskLog = findViewById<TextView>(R.id.taskLog)
             val entry = entryList.addEntry(text)
             entryList.save()
-            taskLog.text = entryList.toString()
+            //taskLog.text = entryList.toString()
             // reorg buttons
         }
+        redrawScreen()
+    }
+
+    fun redrawScreen() {
+        var idx = 0
+        entryList.forTopN(3, {
+            val button_id = buttonList[idx].getId()
+            buttonList[idx].text = it.label
+            buttonMap.set(button_id, it.label)
+            ++idx
+        })
+        while (idx < buttonList.size) {
+            buttonList[idx].isActivated = false
+            buttonList[idx].setText("...")
+        }
+
+        val taskLog = findViewById<TextView>(R.id.taskLog)
+        taskLog.setText(entryList.toString())
     }
 }
