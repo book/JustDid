@@ -4,13 +4,17 @@ import java.util.TimeZone;
 
 public interface Clock {
     public long currentTimeMillis();
+
     public TimeZone timeZone();
 
     public class System implements Clock {
         public long currentTimeMillis() {
             return java.lang.System.currentTimeMillis();
         }
-        public TimeZone timeZone() { return TimeZone.getDefault(); }
+
+        public TimeZone timeZone() {
+            return TimeZone.getDefault();
+        }
     }
 
     public class Fake implements Clock {
@@ -21,6 +25,8 @@ public interface Clock {
             return millis;
         }
 
-         public TimeZone timeZone() { return timeZone; }
+        public TimeZone timeZone() {
+            return timeZone;
+        }
     }
 }

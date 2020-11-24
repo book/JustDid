@@ -32,9 +32,10 @@ class Entry {
         val simpleDateFormat = SimpleDateFormat(pattern)
         simpleDateFormat.timeZone = tz
         val dateTimeStr = simpleDateFormat.format(epoch * 1000)
-        return String.format("%s %s", dateTimeStr, label )
+        return String.format("%s %s", dateTimeStr, label)
     }
+
     override fun toString(): String {
-        return String.format( "%d %d %s", ourSerialVersionUID, epoch, label )
+        return String.format("%d %d %s", ourSerialVersionUID, epoch, label)
     }
 }
