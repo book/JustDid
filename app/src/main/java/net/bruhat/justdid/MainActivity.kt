@@ -149,6 +149,7 @@ class MainActivity : AppCompatActivity() {
         while (idx < buttonList.size) {
             buttonList[idx].isActivated = false
             buttonList[idx].setText("...")
+            ++idx
         }
 
         val taskLog = findViewById<TextView>(R.id.taskLog)
