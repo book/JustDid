@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
 
         taskLog.text = entryList.toString()
         task.setText("")
-        // reorg buttons
+        redrawScreen()
     }
 
     fun clickButton(view: View) {
