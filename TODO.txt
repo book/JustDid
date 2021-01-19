@@ -1,8 +1,9 @@
-* make it easier to repeat things (when did I last empty the cat litter?)
+* edit entries
+✓ make it easier to repeat things (when did I last empty the cat litter?)
   * show the top 9 chores as direct-entry buttons (3x3)
     * make a button list of known chores
       * static set of buttons in the rigid layout
-      * dynamically update the text and action from the EntryList
+      ✓ dynamically update the text and action from the EntryList
     * programmatically add buttons to UI? (more buttons if they fit)
 * move input of new chore behind plus button
 * two panes/views: one for entry (and last 3 items?), one for the full log
@@ -13,6 +14,14 @@
 
 * modify files and see them reflected in the device,
 	the files can be "uploaded" via the IDE find out the process from the CLI
+* write a Makefile to build the .apk from the command line
+
+New UI:
+* action bar at the bottom:
+  * new entry button    -> opens an edit box
+  * repeat entry button -> opens sorted list of buttons to add an known chore
+  * edit button         -> each chore entry become editable (label, date, delete)
+
 
 Done:
 ✓ save in a new format: version, epoch, chore-name
@@ -22,3 +31,4 @@ Done:
   ✓ newest on top
   ✓ format the date
 ✓ make <Enter> act as the button (and no newlines in the text)
+✓ scroll the taskLog when it's bigger than the screen
