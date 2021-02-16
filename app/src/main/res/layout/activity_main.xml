@@ -61,6 +61,14 @@
         app:barrierDirection="left"
         tools:layout_editor_absoluteX="411dp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/task_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layoutManager="LinearLayoutManager"/>
+    <!--
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -90,4 +98,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
     </ScrollView>
+    -->
+    <!-- <Toolbar
+         android:id="@+id/toolBar"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         app:layout_constraintBottom_toBottomOf="parent">
+         <Button
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+         </Toolbar>
+     -->
 </androidx.constraintlayout.widget.ConstraintLayout>

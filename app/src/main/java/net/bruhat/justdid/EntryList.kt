@@ -43,6 +43,10 @@ class EntryList {
         return entry
     }
 
+    fun entryDisplayString(index: Int) : String {
+        return entries[index].toDisplayString(clock.timeZone())
+    }
+
     override fun toString(): String {
         var dump: String = ""
         entries.listIterator().forEach {
@@ -68,5 +72,9 @@ class EntryList {
         while (i < n && i < topEntries.size) {
             callback(topEntries.get(i++).value[0])
         }
+    }
+
+    fun size(): Int {
+        return entries.size
     }
 }

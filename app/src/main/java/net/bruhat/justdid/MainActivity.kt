@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 
 
@@ -57,6 +58,9 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        val recyclerView: RecyclerView = findViewById(R.id.task_recycler)
+        recyclerView.adapter = EntryListAdapter(entryList)
 
         redrawScreen()
     }
@@ -115,12 +119,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addToTaskLog(view: View) {
-        val taskLog = findViewById<TextView>(R.id.taskLog)
+        // val taskLog = findViewById<TextView>(R.id.taskLog)
         val task = findViewById<EditText>(R.id.editText)
         val entry = entryList.addEntry(task.text.toString())
         entryList.save()
 
-        taskLog.text = entryList.toString()
+        // taskLog.text = entryList.toString()
         task.setText("")
         redrawScreen()
     }
@@ -129,10 +133,8 @@ class MainActivity : AppCompatActivity() {
         val id = view.getId()
         val text = buttonMap.get(id)
         if (text != null) {
-            val taskLog = findViewById<TextView>(R.id.taskLog)
             val entry = entryList.addEntry(text)
             entryList.save()
-            //taskLog.text = entryList.toString()
             // reorg buttons
         }
         redrawScreen()
@@ -152,7 +154,7 @@ class MainActivity : AppCompatActivity() {
             ++idx
         }
 
-        val taskLog = findViewById<TextView>(R.id.taskLog)
-        taskLog.setText(entryList.toString())
+        val recyclerView: RecyclerView = findViewById(R.id.task_recycler);
+        recyclerView.getAdapter()?.notifyDataSetChanged()
     }
 }
