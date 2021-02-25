@@ -4,7 +4,6 @@ import java.io.File
 import java.nio.charset.StandardCharsets
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class EntryList {
     var entries: ArrayList<Entry> = ArrayList<Entry>()
@@ -43,7 +42,7 @@ class EntryList {
         return entry
     }
 
-    fun entryDisplayString(index: Int) : String {
+    fun entryDisplayString(index: Int): String {
         return entries[index].toDisplayString(clock.timeZone())
     }
 
