@@ -9,8 +9,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         task.setOnKeyListener { v, keyCode, event ->
             return@setOnKeyListener when (keyCode) {
                 KeyEvent.KEYCODE_ENTER -> {
-                    if (event.getAction() === KeyEvent.ACTION_DOWN) {
+                    if (event.action === KeyEvent.ACTION_DOWN) {
                         addToTaskLog(v)
                         true
                     } else {
@@ -74,15 +72,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun buildButtonFor(chore: String) {
         var newButton: Button = Button(this)
-        newButton.setId(View.generateViewId())
-        newButton.setText(chore)
+        newButton.id = View.generateViewId()
+        newButton.text = chore
 
         // set constraints
         // see: ConstraintLayout, ConstraintSet
         val mainLayout = findViewById<ConstraintLayout>(R.id.mainLayout)
         mainLayout.addView(newButton)
 
-        buttonList.add(newButton);
+        buttonList.add(newButton)
     }
 
 
@@ -111,10 +109,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getTaskLogFile(): File {
-        verifyStoragePermissions(this);
+        verifyStoragePermissions(this)
         val name = getString(R.string.just_did_filename)
         // path = /data/user/0/net.bruhat.justdid/files/
-        val path = getFilesDir()
+        val path = filesDir
         return File(path, name)
     }
 
@@ -130,7 +128,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun clickButton(view: View) {
-        val id = view.getId()
+        val id = view.id
         val text = buttonMap.get(id)
         if (text != null) {
             val entry = entryList.addEntry(text)
@@ -143,18 +141,18 @@ class MainActivity : AppCompatActivity() {
     fun redrawScreen() {
         var idx = 0
         entryList.forTopN(3, {
-            val button_id = buttonList[idx].getId()
+            val button_id = buttonList[idx].id
             buttonList[idx].text = it.label
             buttonMap.set(button_id, it.label)
             ++idx
         })
         while (idx < buttonList.size) {
             buttonList[idx].isActivated = false
-            buttonList[idx].setText("...")
+            buttonList[idx].text = "..."
             ++idx
         }
 
-        val recyclerView: RecyclerView = findViewById(R.id.task_recycler);
-        recyclerView.getAdapter()?.notifyDataSetChanged()
+        val recyclerView: RecyclerView = findViewById(R.id.task_recycler)
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 }
