@@ -15,6 +15,7 @@
 * modify files and see them reflected in the device,
 	the files can be "uploaded" via the IDE find out the process from the CLI
 * write a Makefile to build the .apk from the command line
+* when adding a new entry, scroll back to the top to see it
 
 New UI:
 * action bar at the bottom:
