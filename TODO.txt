@@ -1,17 +1,14 @@
 * edit entries
-✓ make it easier to repeat things (when did I last empty the cat litter?)
-  * show the top 9 chores as direct-entry buttons (3x3)
-    * make a button list of known chores
-      * static set of buttons in the rigid layout
-      ✓ dynamically update the text and action from the EntryList
-    * programmatically add buttons to UI? (more buttons if they fit)
+  * dialog to set time, chorename (and later: who-did-it)
+  * chorename, who-did-it can include drop-down of pre-existing
 * move input of new chore behind plus button
-* two panes/views: one for entry (and last 3 items?), one for the full log
-  * the log itself could have a "+" for "oh, I forgot to record doing that"
-* view the log of specific type of chore
+  * same dialog as edit, different defaults
+* view the log of specific type of chore (filter?/search?)
   * chore specific config?
-* share a TODO list with another user
+* share a JustDone list with another user
+  * who-did-it
 
+-----
 * modify files and see them reflected in the device,
 	the files can be "uploaded" via the IDE find out the process from the CLI
 * write a Makefile to build the .apk from the command line
@@ -25,6 +22,9 @@ New UI:
 
 
 Done:
+✓ make it easier to repeat things (when did I last empty the cat litter?)
+  ✓ show the top 3 chores as direct-entry buttons
+✓ dynamically update the text and action from the EntryList
 ✓ save in a new format: version, epoch, chore-name
 ✓ save the entire EntryList
 ✓ read the file on startup
