@@ -18,7 +18,7 @@
 
     <Button
         android:id="@+id/del_button"
-        android:layout_width="wrap_content"
+        android:layout_width="32dp"
         android:layout_height="@+id/entry_text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/add_button"
-        android:layout_width="wrap_content"
+        android:layout_width="32dp"
         android:layout_height="@+id/entry_text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/del_button"
