@@ -1,5 +1,8 @@
 package net.bruhat.justdid
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +19,7 @@ class EntryListAdapter(val entryList: EntryList) :
         private val entryListAdapter = entryListAdapter
         private val entryListTextView: TextView = itemView.findViewById(R.id.entry_text)
         private val delButton: Button = itemView.findViewById(R.id.del_button)
+        private val editButton: Button = itemView.findViewById(R.id.edit_button)
         private val addButton: Button = itemView.findViewById(R.id.add_button)
 
         fun bind(entrylist: EntryList, position: Int) {
@@ -24,6 +28,29 @@ class EntryListAdapter(val entryList: EntryList) :
                 View.OnClickListener {
                     // add an item (same text) to the entry list
                     entrylist.addEntry(entrylist.entries[position].label)
+                    entryListAdapter.notifyDataSetChanged()
+                }
+            )
+            editButton.setOnClickListener(
+                View.OnClickListener {
+                    // create the dialog
+                     val builder: AlertDialog.Builder? = AlertDialog.Builder(itemView.context)
+
+            // 2. Chain together various setter methods to set the dialog characteristics
+                    builder?.setMessage("zlonk")
+                           ?.setTitle("kapow")
+                           ?.setPositiveButton("YES",
+                            DialogInterface.OnClickListener { dialog, id ->
+                                // Send the positive button event back to the host activity
+                                // listener.onDialogPositiveClick(this)
+                            })
+
+
+                   // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
+                    val dialog: AlertDialog? = builder?.create()
+
+                    dialog?.show()
+                    // signal data might have changed
                     entryListAdapter.notifyDataSetChanged()
                 }
             )
