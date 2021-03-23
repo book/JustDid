@@ -2,13 +2,16 @@ package net.bruhat.justdid
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import net.bruhat.justdid.R.id.entry_text
 
 class EntryListAdapter(val entryList: EntryList) :
     RecyclerView.Adapter<EntryListAdapter.EntryListViewHolder>() {
@@ -17,7 +20,7 @@ class EntryListAdapter(val entryList: EntryList) :
     class EntryListViewHolder(entryListAdapter: EntryListAdapter, itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private val entryListAdapter = entryListAdapter
-        private val entryListTextView: TextView = itemView.findViewById(R.id.entry_text)
+        private val entryListTextView: TextView = itemView.findViewById(entry_text)
         private val delButton: Button = itemView.findViewById(R.id.del_button)
         private val editButton: Button = itemView.findViewById(R.id.edit_button)
         private val addButton: Button = itemView.findViewById(R.id.add_button)
@@ -33,25 +36,15 @@ class EntryListAdapter(val entryList: EntryList) :
             )
             editButton.setOnClickListener(
                 View.OnClickListener {
-                    // create the dialog
-                     val builder: AlertDialog.Builder? = AlertDialog.Builder(itemView.context)
 
-            // 2. Chain together various setter methods to set the dialog characteristics
-                    builder?.setMessage("zlonk")
-                           ?.setTitle("kapow")
-                           ?.setPositiveButton("YES",
-                            DialogInterface.OnClickListener { dialog, id ->
-                                // Send the positive button event back to the host activity
-                                // listener.onDialogPositiveClick(this)
-                            })
-
-
-                   // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
-                    val dialog: AlertDialog? = builder?.create()
-
-                    dialog?.show()
-                    // signal data might have changed
-                    entryListAdapter.notifyDataSetChanged()
+                    var dialog = Dialog(itemView.context)
+                    dialog.setContentView(R.layout.edit_entry)
+                    dialog.findViewById<EditText>(R.id.entry_text).setText( entrylist.entries[position].label )
+                    // TODO: make actual date and time strings to view
+                    var date = entrylist.entries[position].epoch.toString()
+                    dialog.findViewById<EditText>(R.id.entry_date).setText( date )
+                    // TODO: need to hook up "save" and "cancel" buttons
+                    dialog.show()
                 }
             )
             delButton.setOnClickListener(
