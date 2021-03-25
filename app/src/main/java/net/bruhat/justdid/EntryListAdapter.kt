@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import net.bruhat.justdid.R.id.entry_text
+import java.text.SimpleDateFormat
 
 class EntryListAdapter(val entryList: EntryList) :
     RecyclerView.Adapter<EntryListAdapter.EntryListViewHolder>() {
@@ -41,8 +42,24 @@ class EntryListAdapter(val entryList: EntryList) :
                     dialog.setContentView(R.layout.edit_entry)
                     dialog.findViewById<EditText>(R.id.entry_text).setText( entrylist.entries[position].label )
                     // TODO: make actual date and time strings to view
-                    var date = entrylist.entries[position].epoch.toString()
-                    dialog.findViewById<EditText>(R.id.entry_date).setText( date )
+
+                    // get date and time  as strings
+                    var clock = entrylist.getClock()
+                    var epochMillis = 1000 * entrylist.entries[position].epoch;
+
+                    val ymdPattern = "yyyy-MM-dd"
+                    val ymdDateFormat = SimpleDateFormat(ymdPattern)
+                    ymdDateFormat.timeZone = clock.timeZone()
+                    val dateStr = ymdDateFormat.format(epochMillis)
+                    dialog.findViewById<EditText>(R.id.entry_date).setText( dateStr )
+
+                    val hmsPattern = "HH:mm:ss"
+                    val hmsDateFormat = SimpleDateFormat(hmsPattern)
+                    hmsDateFormat.timeZone = clock.timeZone()
+                    val timeStr = hmsDateFormat.format(epochMillis)
+                    dialog.findViewById<EditText>(R.id.entry_time).setText( timeStr )
+
+                    // when changed, compute and update the new epoch from date + time
                     // TODO: need to hook up "save" and "cancel" buttons
                     dialog.show()
                 }

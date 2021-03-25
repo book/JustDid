@@ -46,6 +46,8 @@ class EntryList {
         return entries[index].toDisplayString(clock.timeZone())
     }
 
+    fun getClock() : Clock { return clock }
+
     override fun toString(): String {
         var dump: String = ""
         entries.listIterator().forEach {
