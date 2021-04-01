@@ -1,9 +1,8 @@
 package net.bruhat.justdid
 
-import android.app.Activity
-import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.DialogInterface
+import android.icu.util.Calendar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import net.bruhat.justdid.R.id.entry_text
 import java.text.SimpleDateFormat
+import java.util.*
 
 class EntryListAdapter(val entryList: EntryList) :
     RecyclerView.Adapter<EntryListAdapter.EntryListViewHolder>() {
@@ -40,24 +40,46 @@ class EntryListAdapter(val entryList: EntryList) :
 
                     var dialog = Dialog(itemView.context)
                     dialog.setContentView(R.layout.edit_entry)
-                    dialog.findViewById<EditText>(R.id.entry_text).setText( entrylist.entries[position].label )
+                    dialog.findViewById<EditText>(R.id.entry_text)
+                        .setText(entrylist.entries[position].label)
                     // TODO: make actual date and time strings to view
 
                     // get date and time  as strings
                     var clock = entrylist.getClock()
                     var epochMillis = 1000 * entrylist.entries[position].epoch;
+                    var cal = GregorianCalendar(clock.timeZone());
+                    cal.setTime(Date(epochMillis));
+
 
                     val ymdPattern = "yyyy-MM-dd"
                     val ymdDateFormat = SimpleDateFormat(ymdPattern)
                     ymdDateFormat.timeZone = clock.timeZone()
+
                     val dateStr = ymdDateFormat.format(epochMillis)
-                    dialog.findViewById<EditText>(R.id.entry_date).setText( dateStr )
+                    val dateField = dialog.findViewById<TextView>(R.id.entry_date)
+                    dateField.setText(dateStr)
+                    dateField.setOnClickListener {
+                        val picker = DatePickerDialog(
+                            itemView.context, { view, year, month, dayOfMonth ->
+                                cal.set(Calendar.YEAR, year);
+                                cal.set(Calendar.MONTH, month);
+                                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                var newEpochMillis = cal.getTime().time;
+                                val newDateStr = ymdDateFormat.format(newEpochMillis)
+                                dateField.setText(newDateStr)
+                            },
+                            cal.get(Calendar.YEAR),
+                            cal.get(Calendar.MONTH),
+                            cal.get(Calendar.DAY_OF_MONTH)
+                        )
+                        picker.show()
+                    }
 
                     val hmsPattern = "HH:mm:ss"
                     val hmsDateFormat = SimpleDateFormat(hmsPattern)
                     hmsDateFormat.timeZone = clock.timeZone()
                     val timeStr = hmsDateFormat.format(epochMillis)
-                    dialog.findViewById<EditText>(R.id.entry_time).setText( timeStr )
+                    dialog.findViewById<EditText>(R.id.entry_time).setText(timeStr)
 
                     // when changed, compute and update the new epoch from date + time
                     // TODO: need to hook up "save" and "cancel" buttons
